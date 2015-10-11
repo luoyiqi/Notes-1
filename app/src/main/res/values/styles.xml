@@ -7,4 +7,11 @@
         <item name="colorPrimary">@android:color/holo_red_light</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@android:color/holo_red_light</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+        <item name="android:textColorPrimary">#000</item>
+        <item name="android:background">#fff</item>
+    </style>
+
 </resources>
