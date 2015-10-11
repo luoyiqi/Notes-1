@@ -53,10 +53,10 @@
             android:text="Numbered List" />
 
         <RadioButton
-            android:id="@+id/plain_text"
+            android:id="@+id/text_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plain Text" />
+            android:text="Text Note" />
 
     </RadioGroup>
 

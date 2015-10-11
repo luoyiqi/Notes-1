@@ -6,9 +6,9 @@ public class BulletedList extends Note{
 
     private ArrayList<String> list = null;
 
-    public BulletedList(String name){
+    public BulletedList(int id, String name){
 
-        super(name);
+        super(id, name);
         this.list = new ArrayList<String>();
     }
 

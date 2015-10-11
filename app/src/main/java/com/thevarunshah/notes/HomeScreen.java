@@ -13,7 +13,11 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.thevarunshah.backend.BulletedList;
+import com.thevarunshah.backend.Database;
 import com.thevarunshah.backend.NotesAdapter;
+import com.thevarunshah.backend.NumberedList;
+import com.thevarunshah.backend.TextNote;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -59,12 +63,18 @@ public class HomeScreen extends AppCompatActivity {
                         switch (selectedTypeID) {
                             case R.id.bulleted_list:
                                 Toast.makeText(getApplicationContext(), noteTitle + " - Bulleted List", Toast.LENGTH_SHORT).show();
+                                BulletedList bl = new BulletedList(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(bl);
                                 break;
                             case R.id.numbered_list:
                                 Toast.makeText(getApplicationContext(), noteTitle + " - Numbered List", Toast.LENGTH_SHORT).show();
+                                NumberedList nl = new NumberedList(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(nl);
                                 break;
-                            case R.id.plain_text:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Plain Text", Toast.LENGTH_SHORT).show();
+                            case R.id.text_note:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Text Note", Toast.LENGTH_SHORT).show();
+                                TextNote tn = new TextNote(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(tn);
                                 break;
                         }
                     }

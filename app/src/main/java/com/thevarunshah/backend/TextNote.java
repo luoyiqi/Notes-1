@@ -1,12 +1,12 @@
 package com.thevarunshah.backend;
 
-public class PlainText extends Note{
+public class TextNote extends Note{
 
     private String notes = null;
 
-    public PlainText(String name){
+    public TextNote(int id, String name){
 
-        super(name);
+        super(id, name);
         this.notes = "";
     }
 

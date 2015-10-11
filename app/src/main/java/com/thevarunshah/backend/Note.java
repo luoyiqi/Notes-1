@@ -2,11 +2,17 @@ package com.thevarunshah.backend;
 
 public class Note{
 
+    private int id;
     private String name = "";
 
-    public Note(String name){
+    public Note(int id, String name){
 
+        this.id = id;
         this.name = name;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public String getName() {

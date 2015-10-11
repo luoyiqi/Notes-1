@@ -6,9 +6,9 @@ public class NumberedList extends Note{
 
     private ArrayList<String> list = null;
 
-    public NumberedList(String name){
+    public NumberedList(int id, String name){
 
-        super(name);
+        super(id, name);
         this.list = new ArrayList<String>();
     }
 
