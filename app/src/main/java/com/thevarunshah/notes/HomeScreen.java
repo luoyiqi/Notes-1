@@ -1,19 +1,15 @@
 package com.thevarunshah.notes;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -60,9 +56,17 @@ public class HomeScreen extends AppCompatActivity {
 
                         RadioGroup noteType = (RadioGroup) dialog.findViewById(R.id.note_type);
                         int selectedTypeID = noteType.getCheckedRadioButtonId();
-                        RadioButton selectedType = (RadioButton) dialog.findViewById(selectedTypeID);
-                        
-                        Toast.makeText(getApplicationContext(), noteTitle + " - " + selectedType.getText(), Toast.LENGTH_SHORT).show();
+                        switch (selectedTypeID) {
+                            case R.id.bulleted_list:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Bulleted List", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.numbered_list:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Numbered List", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.plain_text:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Plain Text", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
                     }
                 });
                 alertDialog.setNegativeButton("CANCEL", null);
