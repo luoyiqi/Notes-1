@@ -17,6 +17,7 @@ import com.thevarunshah.backend.BulletedList;
 import com.thevarunshah.backend.Database;
 import com.thevarunshah.backend.NotesAdapter;
 import com.thevarunshah.backend.NumberedList;
+import com.thevarunshah.backend.Reminder;
 import com.thevarunshah.backend.TextNote;
 
 public class HomeScreen extends AppCompatActivity {
@@ -70,6 +71,11 @@ public class HomeScreen extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), noteTitle + " - Numbered List", Toast.LENGTH_SHORT).show();
                                 NumberedList nl = new NumberedList(Database.getNextID(), noteTitle);
                                 Database.getNotes().add(nl);
+                                break;
+                            case R.id.reminder:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Reminder", Toast.LENGTH_SHORT).show();
+                                Reminder r = new Reminder(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(r);
                                 break;
                             case R.id.text_note:
                                 Toast.makeText(getApplicationContext(), noteTitle + " - Text Note", Toast.LENGTH_SHORT).show();
