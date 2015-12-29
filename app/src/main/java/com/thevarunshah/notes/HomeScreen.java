@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.thevarunshah.backend.BulletedList;
+import com.thevarunshah.backend.ListNote;
 import com.thevarunshah.backend.Database;
 import com.thevarunshah.backend.NotesAdapter;
-import com.thevarunshah.backend.NumberedList;
+import com.thevarunshah.backend.Checklist;
 import com.thevarunshah.backend.Reminder;
 import com.thevarunshah.backend.TextNote;
 
@@ -62,25 +62,25 @@ public class HomeScreen extends AppCompatActivity {
                         RadioGroup noteType = (RadioGroup) dialog.findViewById(R.id.note_type);
                         int selectedTypeID = noteType.getCheckedRadioButtonId();
                         switch (selectedTypeID) {
-                            case R.id.bulleted_list:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Bulleted List", Toast.LENGTH_SHORT).show();
-                                BulletedList bl = new BulletedList(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(bl);
+                            case R.id.text_note:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Text Note", Toast.LENGTH_SHORT).show();
+                                TextNote tn = new TextNote(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(tn);
                                 break;
-                            case R.id.numbered_list:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Numbered List", Toast.LENGTH_SHORT).show();
-                                NumberedList nl = new NumberedList(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(nl);
+                            case R.id.list_note:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - List", Toast.LENGTH_SHORT).show();
+                                ListNote ln = new ListNote(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(ln);
+                                break;
+                            case R.id.checklist:
+                                Toast.makeText(getApplicationContext(), noteTitle + " - Checklist", Toast.LENGTH_SHORT).show();
+                                Checklist cl = new Checklist(Database.getNextID(), noteTitle);
+                                Database.getNotes().add(cl);
                                 break;
                             case R.id.reminder:
                                 Toast.makeText(getApplicationContext(), noteTitle + " - Reminder", Toast.LENGTH_SHORT).show();
                                 Reminder r = new Reminder(Database.getNextID(), noteTitle);
                                 Database.getNotes().add(r);
-                                break;
-                            case R.id.text_note:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Text Note", Toast.LENGTH_SHORT).show();
-                                TextNote tn = new TextNote(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(tn);
                                 break;
                         }
                     }

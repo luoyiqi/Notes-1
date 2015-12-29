@@ -2,11 +2,11 @@ package com.thevarunshah.backend;
 
 import java.util.ArrayList;
 
-public class NumberedList extends Note{
+public class ListNote extends Note{
 
     private ArrayList<String> list = null;
 
-    public NumberedList(int id, String name){
+    public ListNote(int id, String name){
 
         super(id, name);
         this.list = new ArrayList<String>();

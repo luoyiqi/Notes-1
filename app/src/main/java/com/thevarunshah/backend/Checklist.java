@@ -2,11 +2,11 @@ package com.thevarunshah.backend;
 
 import java.util.ArrayList;
 
-public class BulletedList extends Note{
+public class Checklist extends Note{
 
     private ArrayList<String> list = null;
 
-    public BulletedList(int id, String name){
+    public Checklist(int id, String name){
 
         super(id, name);
         this.list = new ArrayList<String>();
