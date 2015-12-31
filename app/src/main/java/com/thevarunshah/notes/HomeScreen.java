@@ -46,7 +46,7 @@ public class HomeScreen extends AppCompatActivity {
                 LayoutInflater layoutInflater = LayoutInflater.from(HomeScreen.this);
                 final View dialog = layoutInflater.inflate(R.layout.input_dialog, null);
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeScreen.this, R.style.AppCompatAlertDialogStyle);
-                alertDialog.setTitle("Note Details");
+                alertDialog.setTitle("New Note");
 
                 alertDialog.setView(dialog);
 

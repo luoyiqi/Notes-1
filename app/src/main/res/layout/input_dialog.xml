@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="10dp"
@@ -37,20 +37,20 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="10dp">
 
         <RadioButton
             android:id="@+id/text_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text" />
+            android:text="Text"
+            android:checked="true"  />
 
         <RadioButton
             android:id="@+id/list_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List"
-            android:checked="true" />
+            android:text="List"/>
 
         <RadioButton
             android:id="@+id/checklist"

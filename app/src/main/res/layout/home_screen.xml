@@ -24,7 +24,7 @@
         app:borderWidth="0dp"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        app:rippleColor="@android:color/holo_red_light"
-        app:backgroundTint="@android:color/holo_red_dark"/>
+        app:rippleColor="#FFA000"
+        app:backgroundTint="#FFC107"/>
 
 </android.support.design.widget.CoordinatorLayout>
