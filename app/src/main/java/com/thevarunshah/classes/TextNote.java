@@ -1,6 +1,8 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.classes;
 
-public class TextNote extends Note{
+import com.thevarunshah.classes.Note;
+
+public class TextNote extends Note {
 
     private String notes = null;
 

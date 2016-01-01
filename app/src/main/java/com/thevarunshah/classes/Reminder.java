@@ -1,8 +1,10 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.classes;
+
+import com.thevarunshah.classes.Note;
 
 import java.util.Date;
 
-public class Reminder extends Note{
+public class Reminder extends Note {
 
     private Date due;
     private String notes;

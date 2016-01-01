@@ -1,4 +1,4 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.classes;
 
 public class Note{
 

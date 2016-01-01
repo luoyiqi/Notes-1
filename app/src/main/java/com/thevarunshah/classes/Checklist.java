@@ -1,12 +1,14 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.classes;
+
+import com.thevarunshah.classes.Note;
 
 import java.util.ArrayList;
 
-public class ListNote extends Note{
+public class Checklist extends Note {
 
     private ArrayList<String> list = null;
 
-    public ListNote(int id, String name){
+    public Checklist(int id, String name){
 
         super(id, name);
         this.list = new ArrayList<String>();

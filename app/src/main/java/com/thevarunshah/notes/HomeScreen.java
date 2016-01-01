@@ -5,38 +5,65 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.thevarunshah.backend.ListNote;
-import com.thevarunshah.backend.Database;
-import com.thevarunshah.backend.NotesAdapter;
-import com.thevarunshah.backend.Checklist;
-import com.thevarunshah.backend.Reminder;
-import com.thevarunshah.backend.TextNote;
+import com.thevarunshah.classes.Checklist;
+import com.thevarunshah.backend.Backend;
+import com.thevarunshah.classes.ListNote;
+import com.thevarunshah.backend.NoteAdapter;
+import com.thevarunshah.backend.RecyclerItemClickListener;
+import com.thevarunshah.classes.Reminder;
+import com.thevarunshah.classes.TextNote;
 
 public class HomeScreen extends AppCompatActivity {
 
+    final private String TAG = "HomeScreen";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
         RecyclerView notesList = (RecyclerView) findViewById(R.id.notes_list);
         RecyclerView.LayoutManager notesLayoutManager = new LinearLayoutManager(this);
         notesList.setLayoutManager(notesLayoutManager);
+        notesList.setItemAnimator(new DefaultItemAnimator());
 
-        String[] sampleData = new String[20];
-        for(int i = 0; i < sampleData.length; i++){
-            sampleData[i] = "testing view #" + i;
-        }
-        RecyclerView.Adapter notesAdapter = new NotesAdapter(sampleData);
+        final NoteAdapter notesAdapter = new NoteAdapter(Backend.getNotes());
         notesList.setAdapter(notesAdapter);
+
+        notesList.addOnItemTouchListener(
+            new RecyclerItemClickListener(HomeScreen.this, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Object note = notesAdapter.getItem(position);
+                    if(note instanceof TextNote){
+                        TextNote tn = (TextNote) note;
+                        Log.i(TAG, tn.getName());
+                    }
+                    else if(note instanceof ListNote){
+                        ListNote ln = (ListNote) note;
+                        Log.i(TAG, ln.getName());
+                    }
+                    else if(note instanceof Checklist){
+                        Checklist cl = (Checklist) note;
+                        Log.i(TAG, cl.getName());
+                    }
+                    else if(note instanceof Reminder){
+                        Reminder r = (Reminder) note;
+                        Log.i(TAG, r.getName());
+                    }
+                }
+            })
+        );
 
         FloatingActionButton addNote = (FloatingActionButton) findViewById(R.id.add_note);
         addNote.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +72,8 @@ public class HomeScreen extends AppCompatActivity {
 
                 LayoutInflater layoutInflater = LayoutInflater.from(HomeScreen.this);
                 final View dialog = layoutInflater.inflate(R.layout.input_dialog, null);
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeScreen.this, R.style.AppCompatAlertDialogStyle);
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeScreen.this,
+                        R.style.AppCompatAlertDialogStyle);
                 alertDialog.setTitle("New Note");
 
                 alertDialog.setView(dialog);
@@ -63,24 +91,20 @@ public class HomeScreen extends AppCompatActivity {
                         int selectedTypeID = noteType.getCheckedRadioButtonId();
                         switch (selectedTypeID) {
                             case R.id.text_note:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Text Note", Toast.LENGTH_SHORT).show();
-                                TextNote tn = new TextNote(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(tn);
+                                TextNote tn = new TextNote(Backend.getNextID(), noteTitle);
+                                notesAdapter.add(tn);
                                 break;
                             case R.id.list_note:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - List", Toast.LENGTH_SHORT).show();
-                                ListNote ln = new ListNote(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(ln);
+                                ListNote ln = new ListNote(Backend.getNextID(), noteTitle);
+                                notesAdapter.add(ln);
                                 break;
                             case R.id.checklist:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Checklist", Toast.LENGTH_SHORT).show();
-                                Checklist cl = new Checklist(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(cl);
+                                Checklist cl = new Checklist(Backend.getNextID(), noteTitle);
+                                notesAdapter.add(cl);
                                 break;
                             case R.id.reminder:
-                                Toast.makeText(getApplicationContext(), noteTitle + " - Reminder", Toast.LENGTH_SHORT).show();
-                                Reminder r = new Reminder(Database.getNextID(), noteTitle);
-                                Database.getNotes().add(r);
+                                Reminder r = new Reminder(Backend.getNextID(), noteTitle);
+                                notesAdapter.add(r);
                                 break;
                         }
                     }

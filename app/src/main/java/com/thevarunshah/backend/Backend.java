@@ -1,9 +1,11 @@
 package com.thevarunshah.backend;
 
+import com.thevarunshah.classes.Note;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Database {
+public class Backend {
 
     private static AtomicInteger idCounter = new AtomicInteger();
 
