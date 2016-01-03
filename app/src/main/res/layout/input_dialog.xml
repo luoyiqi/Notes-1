@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:text="Text\t"
+                android:text="Text"
                 android:checked="true"/>
 
             <RadioButton
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:text="List\t\t"/>
+                android:text="List\t"/>
 
             <RadioButton
                 android:id="@+id/reminder"

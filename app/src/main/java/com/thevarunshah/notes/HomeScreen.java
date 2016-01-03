@@ -1,8 +1,10 @@
 package com.thevarunshah.notes;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -47,18 +49,28 @@ public class HomeScreen extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Object note = notesAdapter.getItem(position);
-                        if (note instanceof TextNote) {
+                        if(note instanceof TextNote){
                             TextNote tn = (TextNote) note;
-                            Log.i(TAG, tn.getName());
-                        } else if (note instanceof ListNote) {
+                            Intent i = new Intent(HomeScreen.this, TextNoteView.class);
+                            startActivity(i);
+                        }
+                        else if(note instanceof ListNote){
                             ListNote ln = (ListNote) note;
-                            Log.i(TAG, ln.getName());
-                        } else if (note instanceof Checklist) {
+                            Snackbar infoBar = Snackbar.make(findViewById(R.id.coordLayout), ln.getName(),
+                                    Snackbar.LENGTH_SHORT);
+                            infoBar.show();
+                        }
+                        else if(note instanceof Checklist){
                             Checklist cl = (Checklist) note;
-                            Log.i(TAG, cl.getName());
-                        } else if (note instanceof Reminder) {
+                            Snackbar infoBar = Snackbar.make(findViewById(R.id.coordLayout), cl.getName(),
+                                    Snackbar.LENGTH_SHORT);
+                            infoBar.show();
+                        }
+                        else if(note instanceof Reminder){
                             Reminder r = (Reminder) note;
-                            Log.i(TAG, r.getName());
+                            Snackbar infoBar = Snackbar.make(findViewById(R.id.coordLayout), r.getName(),
+                                    Snackbar.LENGTH_SHORT);
+                            infoBar.show();
                         }
                     }
                 })
