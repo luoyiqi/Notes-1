@@ -17,6 +17,7 @@
         android:layout_marginTop="2.5dp"
         android:layout_marginBottom="2.5dp"
         android:textSize="20sp"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        android:singleLine="true"/>
 
 </RelativeLayout>

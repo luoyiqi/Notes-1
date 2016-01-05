@@ -52,6 +52,9 @@ public class HomeScreen extends AppCompatActivity {
                         if(note instanceof TextNote){
                             TextNote tn = (TextNote) note;
                             Intent i = new Intent(HomeScreen.this, TextNoteView.class);
+                            Bundle extra = new Bundle();
+                            extra.putInt("noteId", tn.getId());
+                            i.putExtra("bundle", extra);
                             startActivity(i);
                         }
                         else if(note instanceof ListNote){
