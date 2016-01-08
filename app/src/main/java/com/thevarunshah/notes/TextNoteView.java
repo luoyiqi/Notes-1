@@ -1,12 +1,16 @@
 package com.thevarunshah.notes;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,10 +41,12 @@ public class TextNoteView extends AppCompatActivity {
         if(tn.getNotes().equals("")){
             ((ViewGroup)tv.getParent()).removeView(tv);
             edit = false;
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         else{
             ((ViewGroup)et.getParent()).removeView(et);
             tv.setText(tn.getNotes());
+            tv.setMovementMethod(new ScrollingMovementMethod());
         }
     }
 
@@ -62,6 +68,7 @@ public class TextNoteView extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         switch(item.getItemId()){
             case R.id.edit_note:
                 ((ViewGroup)tv.getParent()).addView(et);
@@ -69,6 +76,11 @@ public class TextNoteView extends AppCompatActivity {
                 ((ViewGroup)tv.getParent()).removeView(tv);
                 menu.findItem(R.id.edit_note).setVisible(false);
                 menu.findItem(R.id.save_note).setVisible(true);
+                if(imm != null){
+                    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
+                }
+                et.setSelection(et.getText().length());
+                et.requestFocus();
                 return true;
             case R.id.save_note:
                 ((ViewGroup)et.getParent()).addView(tv);
@@ -76,6 +88,10 @@ public class TextNoteView extends AppCompatActivity {
                 ((ViewGroup)et.getParent()).removeView(et);
                 menu.findItem(R.id.save_note).setVisible(false);
                 menu.findItem(R.id.edit_note).setVisible(true);
+                if(imm != null){
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                }
+                tv.setMovementMethod(new ScrollingMovementMethod());
                 return true;
             case android.R.id.home:
                 if(menu.findItem(R.id.edit_note).isVisible()){
