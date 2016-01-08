@@ -6,15 +6,27 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/textnote_text"
+        android:id="@+id/textnote_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:ems="10"
+        android:textSize="18sp"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="12dp"
+        android:hint="Enter notes..."
         android:background="@android:color/transparent"/>
+
+    <TextView
+        android:id="@+id/textnote_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@android:color/black"/>
 
 </LinearLayout>
