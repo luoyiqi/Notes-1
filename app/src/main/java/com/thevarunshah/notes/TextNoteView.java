@@ -180,5 +180,15 @@ public class TextNoteView extends AppCompatActivity {
         else{
             tn.setNotes(et.getText().toString());
         }
+        Backend.writeData(this.getApplicationContext()); //backup data
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        if(tn == null){
+            this.finish();
+        }
     }
 }

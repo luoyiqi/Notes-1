@@ -1,9 +1,12 @@
 package com.thevarunshah.classes;
 
-public class Note{
+import java.io.Serializable;
+
+public class Note implements Serializable{
+
+    private static final long serialVersionUID = 1L; //for serializing data
 
     private int id;
-
     private String name = "";
 
     public Note(int id, String name){

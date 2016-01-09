@@ -187,9 +187,19 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+
+        super.onPause();
+        Backend.writeData(this.getApplicationContext()); //backup data
+    }
+
+    @Override
     protected void onResume() {
 
         super.onResume();
+        if(Backend.getNotes().isEmpty()){
+            Backend.readData(this.getApplicationContext()); //read data from backup
+        }
         notesAdapter.notifyDataSetChanged();
     }
 }
