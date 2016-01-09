@@ -11,7 +11,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +29,7 @@ import com.thevarunshah.classes.TextNote;
 public class HomeScreen extends AppCompatActivity {
 
     final private String TAG = "HomeScreen";
+    private NoteAdapter notesAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class HomeScreen extends AppCompatActivity {
         notesList.setLayoutManager(notesLayoutManager);
         notesList.setItemAnimator(new DefaultItemAnimator());
 
-        final NoteAdapter notesAdapter = new NoteAdapter(Backend.getNotes());
+        notesAdapter = new NoteAdapter(Backend.getNotes());
         notesList.setAdapter(notesAdapter);
 
         notesList.addOnItemTouchListener(
@@ -88,7 +88,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View v) {
 
                 LayoutInflater layoutInflater = LayoutInflater.from(HomeScreen.this);
-                final View dialog = layoutInflater.inflate(R.layout.input_dialog, null);
+                final View dialog = layoutInflater.inflate(R.layout.new_note_dialog, null);
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeScreen.this,
                         R.style.AppCompatAlertDialogStyle);
                 alertDialog.setTitle("New Note");
@@ -184,5 +184,12 @@ public class HomeScreen extends AppCompatActivity {
                 alert.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        notesAdapter.notifyDataSetChanged();
     }
 }

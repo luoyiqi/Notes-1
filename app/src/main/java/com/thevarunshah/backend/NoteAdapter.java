@@ -1,8 +1,5 @@
 package com.thevarunshah.backend;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +11,7 @@ import com.thevarunshah.classes.ListNote;
 import com.thevarunshah.classes.Note;
 import com.thevarunshah.classes.Reminder;
 import com.thevarunshah.classes.TextNote;
-import com.thevarunshah.notes.HomeScreen;
 import com.thevarunshah.notes.R;
-import com.thevarunshah.notes.TextNoteView;
 
 import java.util.List;
 
