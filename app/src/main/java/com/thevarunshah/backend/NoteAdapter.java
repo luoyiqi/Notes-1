@@ -38,16 +38,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         viewHolder.txtViewTitle.setText(items.get(position).getName());
         Object note = items.get(position);
         if(note instanceof TextNote){
-            viewHolder.txtViewType.setText("Text");
+            viewHolder.txtViewType.setText("Text | Last modified: " + ((TextNote) note).getFormattedDate());
         }
         else if(note instanceof ListNote){
-            viewHolder.txtViewType.setText("List");
+            viewHolder.txtViewType.setText("List | Last modified: " + ((ListNote) note).getFormattedDate());
         }
         else if(note instanceof Checklist){
-            viewHolder.txtViewType.setText("Checklist");
+            viewHolder.txtViewType.setText("Checklist | Last modified: " + ((Checklist) note).getFormattedDate());
         }
         else if(note instanceof Reminder){
-            viewHolder.txtViewType.setText("Reminder");
+            viewHolder.txtViewType.setText("Reminder | Last modified: " + ((Reminder) note).getFormattedDate());
         }
     }
 

@@ -161,6 +161,11 @@ public class HomeScreen extends AppCompatActivity {
                         if(tnButton.isChecked()){
                             TextNote tn = new TextNote(Backend.getNextID(), noteTitle);
                             notesAdapter.add(tn);
+                            Intent i = new Intent(HomeScreen.this, TextNoteView.class);
+                            Bundle extra = new Bundle();
+                            extra.putInt("noteId", tn.getId());
+                            i.putExtra("bundle", extra);
+                            startActivity(i);
                         }
                         else if(lnButton.isChecked()){
                             ListNote ln = new ListNote(Backend.getNextID(), noteTitle);

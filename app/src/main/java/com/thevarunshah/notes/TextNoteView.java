@@ -100,6 +100,7 @@ public class TextNoteView extends AppCompatActivity {
                     imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
                 tv.setMovementMethod(new ScrollingMovementMethod());
+                tn.updateDate();
                 return true;
             case R.id.edit_title:
                 //inflate layout with customized alert dialog view
@@ -123,6 +124,7 @@ public class TextNoteView extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichButton) {
                         tn.setName(input.getText().toString());
+                        tn.updateDate();
                         getSupportActionBar().setTitle(Html.fromHtml("<b>" + tn.getName() + "</b>"));
                     }
                 });
@@ -179,6 +181,7 @@ public class TextNoteView extends AppCompatActivity {
         }
         else{
             tn.setNotes(et.getText().toString());
+            tn.updateDate();
         }
         Backend.writeData(this.getApplicationContext()); //backup data
     }
