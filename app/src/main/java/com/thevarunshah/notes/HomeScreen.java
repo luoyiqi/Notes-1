@@ -62,9 +62,11 @@ public class HomeScreen extends AppCompatActivity {
                         }
                         else if(note instanceof ListNote){
                             ListNote ln = (ListNote) note;
-                            Snackbar infoBar = Snackbar.make(findViewById(R.id.coordLayout), ln.getName(),
-                                    Snackbar.LENGTH_SHORT);
-                            infoBar.show();
+                            Intent i = new Intent(HomeScreen.this, ListNoteView.class);
+                            Bundle extra = new Bundle();
+                            extra.putInt("noteId", ln.getId());
+                            i.putExtra("bundle", extra);
+                            startActivity(i);
                         }
                         else if(note instanceof Checklist){
                             Checklist cl = (Checklist) note;
@@ -170,6 +172,11 @@ public class HomeScreen extends AppCompatActivity {
                         else if(lnButton.isChecked()){
                             ListNote ln = new ListNote(Backend.getNextID(), noteTitle);
                             notesAdapter.add(ln);
+                            Intent i = new Intent(HomeScreen.this, ListNoteView.class);
+                            Bundle extra = new Bundle();
+                            extra.putInt("noteId", ln.getId());
+                            i.putExtra("bundle", extra);
+                            startActivity(i);
                         }
                         else if(clButton.isChecked()){
                             Checklist cl = new Checklist(Backend.getNextID(), noteTitle);

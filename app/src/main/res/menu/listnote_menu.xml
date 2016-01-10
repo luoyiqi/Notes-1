@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_to_list"
+        android:title="Add to List"
+        android:icon="@drawable/ic_add_black_48dp"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/edit_title"
+        android:title="Edit Title"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/delete_note"
+        android:title="Delete Note"
+        app:showAsAction="never"/>
+
+</menu>

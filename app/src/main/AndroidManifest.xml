@@ -18,6 +18,9 @@
         <activity
             android:name=".TextNoteView"
             android:label="Text Note"/>
+        <activity
+            android:name=".ListNoteView"
+            android:label="List Note"/>
     </application>
 
 </manifest>

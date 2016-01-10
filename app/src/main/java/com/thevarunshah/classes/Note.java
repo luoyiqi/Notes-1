@@ -32,15 +32,14 @@ public class Note implements Serializable{
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
     public void updateDate() {
         this.date = Calendar.getInstance().getTime();
     }
 
     public String getFormattedDate(){
+        if(date == null){
+            updateDate();
+        }
         return (new SimpleDateFormat("MMM dd, hh:mm a")).format(this.date);
     }
 }
