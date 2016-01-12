@@ -55,7 +55,6 @@ public class ListNoteView extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View dialog = null;
 

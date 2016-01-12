@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusable="false" />
 
 </LinearLayout>

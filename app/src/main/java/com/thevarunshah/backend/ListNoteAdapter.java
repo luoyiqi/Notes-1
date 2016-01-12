@@ -1,11 +1,14 @@
 package com.thevarunshah.backend;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.thevarunshah.notes.R;
 
@@ -54,6 +57,23 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
         //get item and link references to holder
         String bulletText = list.get(position);
         holder.bullet.setText(bulletText);
+
+        holder.bullet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    final EditText et = (EditText) v;
+                    String text = et.getText().toString();
+                    if(text.equals("")){
+                        list.remove(position);
+                        notifyDataSetChanged();
+                    }
+                    else{
+                        list.set(position, et.getText().toString());
+                    }
+                }
+            }
+        });
 
         return convertView;
     }
