@@ -14,15 +14,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.thevarunshah.backend.Backend;
+import com.thevarunshah.backend.ListNoteAdapter;
 import com.thevarunshah.classes.ListNote;
 
 public class ListNoteView extends AppCompatActivity {
 
     final private String TAG = "ListNoteView";
     private ListNote ln = null;
+    private ListNoteAdapter listAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,11 @@ public class ListNoteView extends AppCompatActivity {
         ln = (ListNote) Backend.getNote(noteId);
         getSupportActionBar().setTitle(Html.fromHtml("<b>" + ln.getName() + "</b>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //obtain list view and create new list custom adapter
+        ListView listView = (ListView) findViewById(R.id.listnote_listview);
+        listAdapter = new ListNoteAdapter(this, ln.getList());
+        listView.setAdapter(listAdapter); //attach adapter to list view
     }
 
     @Override
@@ -53,6 +61,8 @@ public class ListNoteView extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.add_to_list:
+                ln.getList().add("");
+                listAdapter.notifyDataSetChanged();
                 return true;
             case R.id.edit_title:
                 //inflate layout with customized alert dialog view

@@ -6,9 +6,10 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listnote_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
         android:padding="5dp" />
 
 </LinearLayout>
