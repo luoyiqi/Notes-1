@@ -1,6 +1,5 @@
 package com.thevarunshah.notes;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,10 +19,12 @@ import com.thevarunshah.backend.Backend;
 import com.thevarunshah.backend.ListNoteAdapter;
 import com.thevarunshah.classes.ListNote;
 
+import java.util.ArrayList;
+
 public class ListNoteView extends AppCompatActivity {
 
     final private String TAG = "ListNoteView";
-    private ListNote ln = null;
+    public static ListNote ln = null;
     private ListNoteAdapter listAdapter = null;
 
     @Override
@@ -62,6 +62,7 @@ public class ListNoteView extends AppCompatActivity {
             case R.id.add_to_list:
                 ln.getList().add("");
                 listAdapter.notifyDataSetChanged();
+                ln.updateDate();
                 return true;
             case R.id.edit_title:
                 //inflate layout with customized alert dialog view
@@ -133,10 +134,30 @@ public class ListNoteView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void deleteEmpty(){
+
+        ArrayList<Integer> removeIndices = new ArrayList<Integer>();
+        for(int i = 0; i < ln.getList().size(); i++){
+            if(ln.getList().get(i).equals("")){
+                removeIndices.add(i);
+            }
+        }
+
+        for(int i = 0; i < removeIndices.size(); i++){
+            ln.getList().remove(removeIndices.get(i)-i);
+        }
+
+        if(removeIndices.size() > 0){
+            ln.updateDate();
+            listAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     protected void onPause() {
 
         super.onPause();
+        deleteEmpty();
         Backend.writeData(this.getApplicationContext()); //backup data
     }
 

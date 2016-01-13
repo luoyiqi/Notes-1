@@ -1,15 +1,13 @@
 package com.thevarunshah.backend;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import com.thevarunshah.notes.ListNoteView;
 import com.thevarunshah.notes.R;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
     /**
      * the list adapter
      * @param context the application context
-     * @param list the list of items
+     * @param list the list of bullets
      */
     public ListNoteAdapter(Context context, ArrayList<String> list) {
 
@@ -32,7 +30,7 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
     }
 
     /**
-     * a view holder for each item in the row
+     * a view holder for each bullet in the row
      */
     private class ViewHolder {
         EditText bullet;
@@ -54,7 +52,7 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        //get item and link references to holder
+        //get bullet and link references to holder
         String bulletText = list.get(position);
         holder.bullet.setText(bulletText);
 
@@ -63,14 +61,8 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     final EditText et = (EditText) v;
-                    String text = et.getText().toString();
-                    if(text.equals("")){
-                        list.remove(position);
-                        notifyDataSetChanged();
-                    }
-                    else{
-                        list.set(position, et.getText().toString());
-                    }
+                    list.set(position, et.getText().toString());
+                    ListNoteView.ln.updateDate();
                 }
             }
         });

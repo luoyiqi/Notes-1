@@ -40,6 +40,6 @@ public class Note implements Serializable{
         if(date == null){
             updateDate();
         }
-        return (new SimpleDateFormat("MMM dd, hh:mm a")).format(this.date);
+        return (new SimpleDateFormat("MMM dd, h:mm a")).format(this.date);
     }
 }
