@@ -22,6 +22,10 @@
             android:name=".ListNoteView"
             android:label="List Note"
             android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ChecklistView"
+            android:label="Checklist"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

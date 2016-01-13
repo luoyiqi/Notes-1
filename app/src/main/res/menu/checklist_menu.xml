@@ -15,8 +15,13 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/clear_checked"
+        android:title="Clear All Checked"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/delete_note"
-        android:title="Delete List"
+        android:title="Delete Checklist"
         app:showAsAction="never"/>
 
 </menu>
