@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class Checklist extends Note {
 
-    private ArrayList<String> list = null;
+    private ArrayList<ChecklistItem> list = null;
 
     public Checklist(int id, String name){
 
         super(id, name);
-        this.list = new ArrayList<String>();
+        this.list = new ArrayList<ChecklistItem>();
     }
 
-    public ArrayList<String> getList() {
+    public ArrayList<ChecklistItem> getList() {
         return this.list;
     }
 }

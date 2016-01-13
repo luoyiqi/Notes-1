@@ -12,15 +12,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.thevarunshah.backend.Backend;
+import com.thevarunshah.backend.ChecklistAdapter;
 import com.thevarunshah.classes.Checklist;
+import com.thevarunshah.classes.ChecklistItem;
 
 public class ChecklistView extends AppCompatActivity {
 
     final private String TAG = "ChecklistView";
     public static Checklist cl = null;
+
+    private ListView listView = null; //main view of items
+    private ChecklistAdapter listAdapter = null; //adapter for items display
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,13 @@ public class ChecklistView extends AppCompatActivity {
         cl = (Checklist) Backend.getNote(noteId);
         getSupportActionBar().setTitle(Html.fromHtml("<b>" + cl.getName() + "</b>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //obtain list view and create new bucket list custom adapter
+        listView = (ListView) findViewById(R.id.checklist_listview);
+        listAdapter = new ChecklistAdapter(this, cl.getList());
+        listView.setAdapter(listAdapter); //attach adapter to list view
+
+
     }
 
     @Override
@@ -50,6 +63,9 @@ public class ChecklistView extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.add_to_list:
+                cl.getList().add(new ChecklistItem(""));
+                listAdapter.notifyDataSetChanged();
+                cl.updateDate();
                 return true;
             case R.id.clear_checked:
                 return true;
