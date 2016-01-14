@@ -20,6 +20,8 @@ import com.thevarunshah.backend.ChecklistAdapter;
 import com.thevarunshah.classes.Checklist;
 import com.thevarunshah.classes.ChecklistItem;
 
+import java.util.ArrayList;
+
 public class ChecklistView extends AppCompatActivity {
 
     final private String TAG = "ChecklistView";
@@ -68,6 +70,26 @@ public class ChecklistView extends AppCompatActivity {
                 cl.updateDate();
                 return true;
             case R.id.clear_checked:
+                //inflate layout with customized alert dialog view
+                dialog = layoutInflater.inflate(R.layout.info_dialog, null);
+                final AlertDialog.Builder clearCheckedDialogBuilder = new AlertDialog.Builder(this,
+                        R.style.AppCompatAlertDialogStyle);
+                clearCheckedDialogBuilder.setView(dialog);
+
+                //fetch textview and set its text
+                final TextView message = (TextView) dialog.findViewById(R.id.infodialog_text);
+                message.setText("This will delete all items from the checklist which are checked. Are you sure?");
+
+                clearCheckedDialogBuilder.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int whichButton) {
+                        deleteChecked();
+                    }
+                });
+                clearCheckedDialogBuilder.setNegativeButton("CANCEL", null);
+
+                //create and show the dialog
+                AlertDialog clearCheckedDialog = clearCheckedDialogBuilder.create();
+                clearCheckedDialog.show();
                 return true;
             case R.id.edit_title:
                 //inflate layout with customized alert dialog view
@@ -117,8 +139,8 @@ public class ChecklistView extends AppCompatActivity {
                 deleteNoteDialogBuilder.setView(dialog);
 
                 //fetch textview and set its text
-                final TextView message = (TextView) dialog.findViewById(R.id.infodialog_text);
-                message.setText("Are you sure you want to delete this checklist?");
+                final TextView message2 = (TextView) dialog.findViewById(R.id.infodialog_text);
+                message2.setText("Are you sure you want to delete this checklist?");
 
                 deleteNoteDialogBuilder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int whichButton) {
@@ -139,10 +161,49 @@ public class ChecklistView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void deleteEmpty(){
+
+        ArrayList<Integer> removeIndices = new ArrayList<Integer>();
+        for(int i = 0; i < cl.getList().size(); i++){
+            if(cl.getList().get(i).getItemText().equals("")){
+                removeIndices.add(i);
+            }
+        }
+
+        for(int i = 0; i < removeIndices.size(); i++){
+            cl.getList().remove(removeIndices.get(i)-i);
+        }
+
+        if(removeIndices.size() > 0){
+            cl.updateDate();
+            listAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void deleteChecked(){
+
+        ArrayList<Integer> removeIndices = new ArrayList<Integer>();
+        for(int i = 0; i < cl.getList().size(); i++){
+            if(cl.getList().get(i).isDone()){
+                removeIndices.add(i);
+            }
+        }
+
+        for(int i = 0; i < removeIndices.size(); i++){
+            cl.getList().remove(removeIndices.get(i)-i);
+        }
+
+        if(removeIndices.size() > 0){
+            cl.updateDate();
+            listAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     protected void onPause() {
 
         super.onPause();
+        deleteEmpty();
         Backend.writeData(this.getApplicationContext()); //backup data
     }
 

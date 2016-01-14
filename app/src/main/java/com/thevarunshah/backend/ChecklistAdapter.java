@@ -70,11 +70,14 @@ public class ChecklistAdapter extends ArrayAdapter<ChecklistItem> {
                 ChecklistItem item = getItem(position);
                 item.setDone(isChecked);
 
-                //apply or get rid of strikethrough effect
-                if (isChecked) {
+                //apply/remove strikethrough effect and disable/enable edit functionality
+                if(isChecked){
                     holderFinal.text.setPaintFlags(holderFinal.text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
+                    holderFinal.text.setFocusable(false);
+                }
+                else{
                     holderFinal.text.setPaintFlags(holderFinal.text.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    holderFinal.text.setFocusableInTouchMode(true);
                 }
             }
         });
