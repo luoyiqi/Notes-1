@@ -17,6 +17,8 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
     private final ArrayList<String> list; //the list the adapter manages
     private final Context context; //context attached to adapter
 
+    public static int currActive;
+
     /**
      * the list adapter
      * @param context the application context
@@ -59,10 +61,16 @@ public class ListNoteAdapter extends ArrayAdapter<String> {
         holder.bullet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+                if(!hasFocus){
+                    if(ListNoteView.exiting){
+                        return;
+                    }
                     final EditText et = (EditText) v;
                     list.set(position, et.getText().toString());
                     ListNoteView.ln.updateDate();
+                }
+                else{
+                    currActive = position;
                 }
             }
         });

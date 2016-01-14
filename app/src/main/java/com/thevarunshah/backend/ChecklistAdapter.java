@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import com.thevarunshah.classes.ChecklistItem;
 import com.thevarunshah.notes.ChecklistView;
-import com.thevarunshah.notes.ListNoteView;
 import com.thevarunshah.notes.R;
 
 import java.util.ArrayList;
@@ -21,6 +20,8 @@ public class ChecklistAdapter extends ArrayAdapter<ChecklistItem> {
 
     private final ArrayList<ChecklistItem> list; //the list the adapter manages
     private final Context context; //context attached to adapter
+
+    public static int currActive;
 
     /**
      * the checklist adapter
@@ -91,10 +92,16 @@ public class ChecklistAdapter extends ArrayAdapter<ChecklistItem> {
         holder.text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+                if(!hasFocus){
+                    if(ChecklistView.exiting){
+                        return;
+                    }
                     final EditText et = (EditText) v;
                     list.get(position).setItemText(et.getText().toString());
                     ChecklistView.cl.updateDate();
+                }
+                else{
+                    currActive = position;
                 }
             }
         });

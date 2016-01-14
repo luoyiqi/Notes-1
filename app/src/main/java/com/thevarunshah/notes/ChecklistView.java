@@ -29,6 +29,7 @@ public class ChecklistView extends AppCompatActivity {
 
     private ListView listView = null; //main view of items
     private ChecklistAdapter listAdapter = null; //adapter for items display
+    public static boolean exiting = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -163,6 +164,13 @@ public class ChecklistView extends AppCompatActivity {
 
     public void deleteEmpty(){
 
+        View v = listView.getChildAt(ChecklistAdapter.currActive);
+        if(v == null){
+            return;
+        }
+        EditText et = (EditText) v.findViewById(R.id.checklist_text);
+        cl.getList().get(ChecklistAdapter.currActive).setItemText(et.getText().toString());
+
         ArrayList<Integer> removeIndices = new ArrayList<Integer>();
         for(int i = 0; i < cl.getList().size(); i++){
             if(cl.getList().get(i).getItemText().equals("")){
@@ -203,6 +211,7 @@ public class ChecklistView extends AppCompatActivity {
     protected void onPause() {
 
         super.onPause();
+        exiting = true;
         deleteEmpty();
         Backend.writeData(this.getApplicationContext()); //backup data
     }
@@ -211,6 +220,7 @@ public class ChecklistView extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
+        exiting = false;
         if(cl == null){
             this.finish();
         }

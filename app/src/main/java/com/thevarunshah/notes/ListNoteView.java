@@ -25,7 +25,10 @@ public class ListNoteView extends AppCompatActivity {
 
     final private String TAG = "ListNoteView";
     public static ListNote ln = null;
+
+    private ListView listView = null;
     private ListNoteAdapter listAdapter = null;
+    public static boolean exiting = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class ListNoteView extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //obtain list view and create new list custom adapter
-        ListView listView = (ListView) findViewById(R.id.listnote_listview);
+        listView = (ListView) findViewById(R.id.listnote_listview);
         listAdapter = new ListNoteAdapter(this, ln.getList());
         listView.setAdapter(listAdapter); //attach adapter to list view
     }
@@ -136,6 +139,13 @@ public class ListNoteView extends AppCompatActivity {
 
     public void deleteEmpty(){
 
+        View v = listView.getChildAt(ListNoteAdapter.currActive);
+        if(v == null){
+            return;
+        }
+        EditText et = (EditText) v.findViewById(R.id.listnote_bullet);
+        ln.getList().set(ListNoteAdapter.currActive, et.getText().toString());
+
         ArrayList<Integer> removeIndices = new ArrayList<Integer>();
         for(int i = 0; i < ln.getList().size(); i++){
             if(ln.getList().get(i).equals("")){
@@ -157,6 +167,7 @@ public class ListNoteView extends AppCompatActivity {
     protected void onPause() {
 
         super.onPause();
+        exiting = true;
         deleteEmpty();
         Backend.writeData(this.getApplicationContext()); //backup data
     }
@@ -165,6 +176,7 @@ public class ListNoteView extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
+        exiting = false;
         if(ln == null){
             this.finish();
         }
