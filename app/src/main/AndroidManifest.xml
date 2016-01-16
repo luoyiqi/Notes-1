@@ -26,6 +26,9 @@
             android:name=".ChecklistView"
             android:label="Checklist"
             android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ReminderView"
+            android:label="Reminder"/>
     </application>
 
 </manifest>

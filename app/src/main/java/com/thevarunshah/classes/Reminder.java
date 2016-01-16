@@ -7,6 +7,7 @@ import java.util.Date;
 public class Reminder extends Note {
 
     private Date due;
+    private int reminder;
     private String notes;
 
     public Reminder(int id, String name){
@@ -20,6 +21,14 @@ public class Reminder extends Note {
 
     public void setDue(Date due) {
         this.due = due;
+    }
+
+    public int getReminder() {
+        return reminder;
+    }
+
+    public void setReminder(int reminder) {
+        this.reminder = reminder;
     }
 
     public String getNotes() {

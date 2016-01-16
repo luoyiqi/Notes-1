@@ -78,9 +78,11 @@ public class HomeScreen extends AppCompatActivity {
                         }
                         else if(note instanceof Reminder){
                             Reminder r = (Reminder) note;
-                            Snackbar infoBar = Snackbar.make(findViewById(R.id.coordLayout), r.getName(),
-                                    Snackbar.LENGTH_SHORT);
-                            infoBar.show();
+                            Intent i = new Intent(HomeScreen.this, ReminderView.class);
+                            Bundle extra = new Bundle();
+                            extra.putInt("noteId", r.getId());
+                            i.putExtra("bundle", extra);
+                            startActivity(i);
                         }
                     }
                 })
@@ -192,6 +194,11 @@ public class HomeScreen extends AppCompatActivity {
                         else if(rButton.isChecked()){
                             Reminder r = new Reminder(Backend.getNextID(), noteTitle);
                             notesAdapter.add(r);
+                            Intent i = new Intent(HomeScreen.this, ReminderView.class);
+                            Bundle extra = new Bundle();
+                            extra.putInt("noteId", r.getId());
+                            i.putExtra("bundle", extra);
+                            startActivity(i);
                         }
                     }
                 });
