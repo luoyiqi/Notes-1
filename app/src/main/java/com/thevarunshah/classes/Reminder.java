@@ -2,6 +2,7 @@ package com.thevarunshah.classes;
 
 import com.thevarunshah.classes.Note;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Reminder extends Note {
@@ -13,6 +14,10 @@ public class Reminder extends Note {
     public Reminder(int id, String name){
 
         super(id, name);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, 1);
+        this.due = cal.getTime();
+        this.reminder = 5;
     }
 
     public Date getDue() {

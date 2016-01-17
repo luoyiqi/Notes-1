@@ -17,10 +17,15 @@ import android.widget.TextView;
 import com.thevarunshah.backend.Backend;
 import com.thevarunshah.classes.Reminder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ReminderView extends AppCompatActivity {
 
     final private String TAG = "ReminderView";
     public static Reminder r = null;
+    private Date date;
+    private TextView reminderTV;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,33 @@ public class ReminderView extends AppCompatActivity {
         r = (Reminder) Backend.getNote(noteId);
         getSupportActionBar().setTitle(Html.fromHtml("<b>" + r.getName() + "</b>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        date = r.getDue();
+        TextView dateTV = (TextView) findViewById(R.id.reminder_date);
+        dateTV.setText((new SimpleDateFormat("MM/dd/yy")).format(date));
+        TextView timeTV = (TextView) findViewById(R.id.reminder_time);
+        timeTV.setText((new SimpleDateFormat("h:mm a")).format(date));
+        reminderTV = (TextView) findViewById(R.id.reminder_reminder);
+        reminderTV.setText(r.getReminder() + " minutes before");
+
+        dateTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        timeTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        reminderTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -50,6 +82,8 @@ public class ReminderView extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.save_reminder:
+                r.setDue(date);
+                r.setReminder(Integer.parseInt(reminderTV.getText().toString().substring(0, reminderTV.getText().toString().indexOf(' '))));
                 return true;
             case R.id.edit_title:
                 //inflate layout with customized alert dialog view
