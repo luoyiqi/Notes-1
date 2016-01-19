@@ -11,20 +11,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.thevarunshah.backend.Backend;
 import com.thevarunshah.classes.Reminder;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ReminderView extends AppCompatActivity {
 
     final private String TAG = "ReminderView";
     public static Reminder r = null;
-    private Date date;
+    private TextView dateTV;
+    private TextView timeTV;
     private TextView reminderTV;
 
     @Override
@@ -38,24 +42,73 @@ public class ReminderView extends AppCompatActivity {
         getSupportActionBar().setTitle(Html.fromHtml("<b>" + r.getName() + "</b>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        date = r.getDue();
-        TextView dateTV = (TextView) findViewById(R.id.reminder_date);
-        dateTV.setText((new SimpleDateFormat("MM/dd/yy")).format(date));
-        TextView timeTV = (TextView) findViewById(R.id.reminder_time);
-        timeTV.setText((new SimpleDateFormat("h:mm a")).format(date));
+        dateTV = (TextView) findViewById(R.id.reminder_date);
+        dateTV.setText((new SimpleDateFormat("MM/dd/yy")).format(r.getDue()));
+        timeTV = (TextView) findViewById(R.id.reminder_time);
+        timeTV.setText((new SimpleDateFormat("h:mm a")).format(r.getDue()));
         reminderTV = (TextView) findViewById(R.id.reminder_reminder);
         reminderTV.setText(r.getReminder() + " minutes before");
 
         dateTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutInflater layoutInflater = LayoutInflater.from(ReminderView.this);
+                View dialog = null;
+                //inflate layout with customized alert dialog view
+                dialog = layoutInflater.inflate(R.layout.date_dialog, null);
+                final AlertDialog.Builder dateDialogBuilder = new AlertDialog.Builder(ReminderView.this,
+                        R.style.AppCompatAlertDialogStyle);
+                dateDialogBuilder.setView(dialog);
 
+                //fetch and set up date
+                final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.date_picker);
+                datePicker.setMinDate(Calendar.getInstance().getTimeInMillis()-1000);
+                datePicker.updateDate(Integer.parseInt((new SimpleDateFormat("yyyy")).format(r.getDue())),
+                        Integer.parseInt((new SimpleDateFormat("MM")).format(r.getDue())),
+                        Integer.parseInt((new SimpleDateFormat("dd")).format(r.getDue())));
+                datePicker.setCalendarViewShown(false);
+
+                //set up actions for dialog buttons
+                dateDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int whichButton) {
+                        r.setDue(new Date(datePicker.getCalendarView().getDate()));
+                        dateTV.setText((new SimpleDateFormat("MM/dd/yy")).format(r.getDue()));
+                    }
+                });
+                dateDialogBuilder.setNegativeButton("CANCEL", null);
+
+                //create and show the dialog
+                AlertDialog dateDialog = dateDialogBuilder.create();
+                dateDialog.show();
             }
         });
         timeTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutInflater layoutInflater = LayoutInflater.from(ReminderView.this);
+                View dialog = null;
+                //inflate layout with customized alert dialog view
+                dialog = layoutInflater.inflate(R.layout.time_dialog, null);
+                final AlertDialog.Builder timeDialogBuilder = new AlertDialog.Builder(ReminderView.this,
+                        R.style.AppCompatAlertDialogStyle);
+                timeDialogBuilder.setView(dialog);
 
+                //fetch and set up time
+                final TimePicker timePicker = (TimePicker) dialog.findViewById(R.id.time_picker);
+
+                //set up actions for dialog buttons
+                timeDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int whichButton) {
+
+                    }
+                });
+                timeDialogBuilder.setNegativeButton("CANCEL", null);
+
+                //create and show the dialog
+                AlertDialog timeDialog = timeDialogBuilder.create();
+                timeDialog.show();
             }
         });
         reminderTV.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +135,7 @@ public class ReminderView extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.save_reminder:
-                r.setDue(date);
+                r.setDue(r.getDue());
                 r.setReminder(Integer.parseInt(reminderTV.getText().toString().substring(0, reminderTV.getText().toString().indexOf(' '))));
                 return true;
             case R.id.edit_title:

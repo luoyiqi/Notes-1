@@ -15,7 +15,7 @@ public class Reminder extends Note {
 
         super(id, name);
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.HOUR, 1);
+        cal.add(Calendar.HOUR, 24);
         this.due = cal.getTime();
         this.reminder = 5;
     }
