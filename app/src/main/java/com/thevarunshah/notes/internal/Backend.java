@@ -1,10 +1,9 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.notes.internal;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.thevarunshah.classes.Note;
-import com.thevarunshah.classes.TextNote;
+import com.thevarunshah.notes.data.Note;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

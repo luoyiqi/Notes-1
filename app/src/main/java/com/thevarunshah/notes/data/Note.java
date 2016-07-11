@@ -1,4 +1,4 @@
-package com.thevarunshah.classes;
+package com.thevarunshah.notes.data;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

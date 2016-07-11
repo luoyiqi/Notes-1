@@ -16,8 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.thevarunshah.backend.Backend;
-import com.thevarunshah.classes.Reminder;
+import com.thevarunshah.notes.internal.Backend;
+import com.thevarunshah.notes.data.Reminder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

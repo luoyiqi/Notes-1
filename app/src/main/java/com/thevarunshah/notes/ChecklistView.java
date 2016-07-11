@@ -15,10 +15,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.thevarunshah.backend.Backend;
-import com.thevarunshah.backend.ChecklistAdapter;
-import com.thevarunshah.classes.Checklist;
-import com.thevarunshah.classes.ChecklistItem;
+import com.thevarunshah.notes.internal.Backend;
+import com.thevarunshah.notes.internal.ChecklistAdapter;
+import com.thevarunshah.notes.data.Checklist;
+import com.thevarunshah.notes.data.ChecklistItem;
 
 import java.util.ArrayList;
 

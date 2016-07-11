@@ -1,4 +1,4 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.notes.internal;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import com.thevarunshah.classes.ChecklistItem;
+import com.thevarunshah.notes.data.ChecklistItem;
 import com.thevarunshah.notes.ChecklistView;
 import com.thevarunshah.notes.R;
 

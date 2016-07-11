@@ -1,4 +1,4 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.notes.internal;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.thevarunshah.backend;
+package com.thevarunshah.notes.internal;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.thevarunshah.classes.Checklist;
-import com.thevarunshah.classes.ListNote;
-import com.thevarunshah.classes.Note;
-import com.thevarunshah.classes.Reminder;
-import com.thevarunshah.classes.TextNote;
+import com.thevarunshah.notes.data.Checklist;
+import com.thevarunshah.notes.data.ListNote;
+import com.thevarunshah.notes.data.Note;
+import com.thevarunshah.notes.data.Reminder;
+import com.thevarunshah.notes.data.TextNote;
 import com.thevarunshah.notes.R;
 
 import java.util.List;

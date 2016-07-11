@@ -1,6 +1,4 @@
-package com.thevarunshah.classes;
-
-import com.thevarunshah.classes.Note;
+package com.thevarunshah.notes.data;
 
 import java.util.Calendar;
 import java.util.Date;

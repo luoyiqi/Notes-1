@@ -18,8 +18,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.thevarunshah.backend.Backend;
-import com.thevarunshah.classes.TextNote;
+import com.thevarunshah.notes.internal.Backend;
+import com.thevarunshah.notes.data.TextNote;
 
 public class TextNoteView extends AppCompatActivity {
 

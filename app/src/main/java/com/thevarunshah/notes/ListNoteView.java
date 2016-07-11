@@ -15,9 +15,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.thevarunshah.backend.Backend;
-import com.thevarunshah.backend.ListNoteAdapter;
-import com.thevarunshah.classes.ListNote;
+import com.thevarunshah.notes.internal.Backend;
+import com.thevarunshah.notes.internal.ListNoteAdapter;
+import com.thevarunshah.notes.data.ListNote;
 
 import java.util.ArrayList;
 
