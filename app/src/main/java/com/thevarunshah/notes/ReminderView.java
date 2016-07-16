@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,12 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.thevarunshah.notes.internal.Backend;
 import com.thevarunshah.notes.data.Reminder;
+import com.thevarunshah.notes.internal.Backend;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class ReminderView extends AppCompatActivity {
 
@@ -63,16 +63,22 @@ public class ReminderView extends AppCompatActivity {
                 //fetch and set up date
                 final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.date_picker);
                 datePicker.setMinDate(Calendar.getInstance().getTimeInMillis()-1000);
-                datePicker.updateDate(Integer.parseInt((new SimpleDateFormat("yyyy")).format(r.getDue())),
-                        Integer.parseInt((new SimpleDateFormat("MM")).format(r.getDue())),
-                        Integer.parseInt((new SimpleDateFormat("dd")).format(r.getDue())));
-                datePicker.setCalendarViewShown(false);
+                Calendar c = Calendar.getInstance();
+                c.setTime(r.getDue());
+                datePicker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                //datePicker.setCalendarViewShown(false);
 
                 //set up actions for dialog buttons
                 dateDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichButton) {
-                        r.setDue(new Date(datePicker.getCalendarView().getDate()));
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(r.getDue());
+                        calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+                        calendar.set(Calendar.SECOND, 0);
+
+                        Log.i(TAG, calendar.getTime().toString());
+                        r.setDue(calendar.getTime());
                         dateTV.setText((new SimpleDateFormat("MM/dd/yy")).format(r.getDue()));
                     }
                 });
@@ -96,12 +102,25 @@ public class ReminderView extends AppCompatActivity {
 
                 //fetch and set up time
                 final TimePicker timePicker = (TimePicker) dialog.findViewById(R.id.time_picker);
+                Calendar c = Calendar.getInstance();
+                c.setTime(r.getDue());
+                timePicker.setCurrentHour(c.get(Calendar.HOUR));
+                timePicker.setCurrentMinute(c.get(Calendar.MINUTE));
 
                 //set up actions for dialog buttons
                 timeDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichButton) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(r.getDue());
+                        calendar.set(Calendar.HOUR, timePicker.getCurrentHour());
+                        calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                        calendar.set(Calendar.SECOND, 0);
 
+                        Log.i(TAG, calendar.getTime().toString());
+                        r.setDue(calendar.getTime());
+                        dateTV.setText((new SimpleDateFormat("MM/dd/yy")).format(r.getDue()));
+                        timeTV.setText((new SimpleDateFormat("hh:mm a")).format(r.getDue()));
                     }
                 });
                 timeDialogBuilder.setNegativeButton("CANCEL", null);
